@@ -26,6 +26,24 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
+    public ResponseEntity<CustomerDTO> updateCustomer(Long customerId,@RequestBody
+    CustomerUpdateDTO customerUpdateDTO) {
+        return ResponseEntity.ok(new CustomerDTO(
+                "Customer Updated Successfully",
+                customerService.updateCustomerById(customerId, customerUpdateDTO)
+        ));
+    }
+
+    @Override
+    public ResponseEntity<CustomerDTO> getCustomerById(Long customerId) {
+          return ResponseEntity.ok(new CustomerDTO(
+                "Customer Found Successfully",
+                  customerService.getCustomerById(customerId)
+        ));
+
+    }
+
+    @Override
     public ResponseEntity<CustomerDTO> deleteCustomerById(Long customerId) {
         return ResponseEntity.ok(new CustomerDTO(
                 "Customer Deleted Successfully",
@@ -34,24 +52,5 @@ public class CustomerController implements CustomerApi {
         ));
     }
 
-    @Override
-    public ResponseEntity<CustomerDTO> getCustomerById(Long customerId) {
-          return ResponseEntity.ok(new CustomerDTO(
-                "Customer Found Successfully",
 
-
-
-                  customerService.getCustomerById(customerId)
-        ));
-
-    }
-
-    @Override
-    public ResponseEntity<CustomerDTO> updateCustomer(Long customerId,@RequestBody
-    CustomerUpdateDTO customerUpdateDTO) {
-        return ResponseEntity.ok(new CustomerDTO(
-                "Customer Updated Successfully",
-                customerService.updateCustomerById(customerId, customerUpdateDTO)
-        ));
-    }
 }

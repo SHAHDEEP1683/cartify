@@ -35,6 +35,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDataDTO updateCustomerById(Long customerId, CustomerUpdateDTO customerUpdateDTO) {
+        var exitingCustomer = customerRepositry.findById(customerId).orElseThrow(()->new RuntimeException("Customer Not Found With : "+customerId));
+        mapper.toCustomerUpdate(customerUpdateDTO, exitingCustomer);
+        mapper.toAddressUpdate(customerUpdateDTO.getAddress(), exitingCustomer.getAddress());
+        var updatedCustomer = customerRepositry.save(exitingCustomer);
+        return mapper.toCustomerDataDto(updatedCustomer);
+    }
+
+    @Override
     public CustomerDataDTO getCustomerById(Long customerId) {
         var findCustomer = customerRepositry.findById(customerId).orElseThrow(()->new RuntimeException("Customer Not Found With : "+customerId));
         return mapper.toCustomerDataDto(findCustomer);
@@ -50,12 +59,5 @@ public class CustomerServiceImpl implements CustomerService {
         return mapper.toCustomerDataDto(exitingCustomer);
     }
 
-    @Override
-    public CustomerDataDTO updateCustomerById(Long customerId, CustomerUpdateDTO customerUpdateDTO) {
-        var exitingCustomer = customerRepositry.findById(customerId).orElseThrow(()->new RuntimeException("Customer Not Found With : "+customerId));
-        mapper.toCustomerUpdate(customerUpdateDTO, exitingCustomer);
-        mapper.toAddressUpdate(customerUpdateDTO.getAddress(), exitingCustomer.getAddress());
-        var updatedCustomer = customerRepositry.save(exitingCustomer);
-        return mapper.toCustomerDataDto(updatedCustomer);
-    }
+
 }

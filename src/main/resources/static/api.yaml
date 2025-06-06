@@ -130,6 +130,127 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /seller:
+    post:
+      summary: Create a new seller
+      description: Make a new order with the provided details.
+      operationId: registerSeller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SellerRegisterDTO"
+      responses:
+        "201":
+          description: Order successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellerDTO"
+        "400":
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Order already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /seller/{sellerId}:
+    patch:
+      summary: Update Candidate Details
+      operationId: updateSeller
+      tags:
+        - Seller
+      parameters:
+        - name: sellerId
+          in: path
+          required: true
+          description: Unique ID for every Candidate
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SellerUpdateDTO"
+      responses:
+        "200":
+          description: Seller Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellerDTO"
+        "404":
+          description: No candidate Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    get:
+      summary: Get candidate by Id
+      operationId: getSellerById
+      tags:
+        - Seller
+      parameters:
+        - name: sellerId
+          in: path
+          required: true
+          description: Unique ID for every Candidate
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Candidate Successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellerDTO"
+        "404":
+          description: Error retrieving Candidate Data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete Candidate
+      operationId: deleteSellerById
+      tags:
+        - Seller
+      parameters:
+        - name: sellerId
+          in: path
+          required: true
+          description: Unique ID for every Candidate
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Candidate Deleted Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellerDTO"
+        "404":
+          description: Error Deleting Candidate
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
 components:
   schemas:
@@ -139,5 +260,11 @@ components:
       $ref: './schemas/customerDTO.yaml'
     CustomerUpdateDTO:
       $ref: './schemas/customerUpdateRequestDTO.yaml'
+    SellerRegisterDTO:
+      $ref: './schemas/sellerRegisterDTO.yaml'
+    SellerDTO:
+      $ref: './schemas/sellerDTO.yaml'
+    SellerUpdateDTO:
+      $ref: './schemas/sellerUpdateRequestDTO.yaml'
     ErrorResponse:
       $ref: './schemas/errorResponse.yaml'

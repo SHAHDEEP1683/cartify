@@ -1,0 +1,26 @@
+type: object
+properties:
+  sellerId:
+    type: integer
+    format: int64
+    readOnly: true
+    example: 101
+  sellerName:
+    type: string
+    example: "John Doe"
+  email:
+    type: string
+    format: email
+    pattern: "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+    example: "john.doe@example.com"
+    description: "Valid email format"
+  password:
+    type: string
+    example: "StrongPassword123!"
+  phoneNumber:
+    type: string
+    pattern: "^[6-9]\\d{9}$"
+    example: "9876543210"
+    description: "10-digit mobile number starting with 6-9"
+  address:
+    $ref: "./addressDTO.yaml"
