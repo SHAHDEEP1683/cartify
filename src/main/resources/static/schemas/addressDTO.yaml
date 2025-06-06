@@ -1,0 +1,15 @@
+type: object
+properties:
+  addressId:
+    type: integer
+    format: int64
+    example: 1
+  street:
+    type: string
+    example: "Doe"
+  city:
+    type: string
+    example: "Doe"
+  state:
+    type: string
+    example: "Doe"

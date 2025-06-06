@@ -1,0 +1,35 @@
+type: object
+properties:
+  customerId:
+    type: integer
+    format: int64
+    example: 1
+  firstName:
+    type: string
+    example: "John"
+  lastName:
+    type: string
+    example: "Doe"
+  dateOfBirth:
+    type: string
+    format: date
+    example: "1990-05-15"
+  gender:
+    type: string
+    enum: [ MALE, FEMALE ]
+    example: "MALE"
+  phoneNumber:
+    type: string
+    pattern: "^[6-9]\\d{9}$"
+    example: "9876543210"
+    description: "10-digit mobile number starting with 6-9"
+  email:
+    type: string
+    format: email
+    example: "john.doe@example.com"
+  password:
+    type: string
+    format: email
+    example: "john@123"
+  address:
+    $ref: "./addressDTO.yaml"

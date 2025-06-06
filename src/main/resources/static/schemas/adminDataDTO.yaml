@@ -1,0 +1,25 @@
+type: object
+properties:
+  adminId:
+    type: integer
+    format: int64
+    example: 1
+
+  name:
+    type: string
+    example: "John Doe"
+
+  email:
+    type: string
+    format: email
+    pattern: "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+    example: "john.doe@example.com"
+
+  password:
+    type: string
+    example: "securePassword123"
+
+  phoneNumber:
+    type: string
+    pattern: "^[6-9]\\d{9}$"
+    example: "9876543210"

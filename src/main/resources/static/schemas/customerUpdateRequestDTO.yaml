@@ -1,0 +1,32 @@
+type: object
+properties:
+  adminId:
+    type: integer
+    format: int64
+    example: 1
+
+  firstName:
+    type: string
+    example: "John"
+
+    lastName:
+      type: string
+      example: "Doe"
+
+  email:
+    type: string
+    format: email
+    pattern: "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+    example: "john.doe@example.com"
+
+  password:
+    type: string
+    example: "securePassword123"
+
+  phoneNumber:
+    type: string
+    pattern: "^[6-9]\\d{9}$"
+    example: "9876543210"
+
+  address:
+    $ref: "./addressDTO.yaml"

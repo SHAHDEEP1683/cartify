@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: Customer API
+  version: 1.0.0
+  description: API for order management
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /customer:
+    post:
+      summary: Make a new order
+      description: Make a new order with the provided details.
+      operationId: registerCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRegisterDTO"
+      responses:
+        "201":
+          description: Order successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        "400":
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Order already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /customer/{customerId}:
+    get:
+      summary: Get candidate by Id
+      operationId: getCustomerById
+      tags:
+        - Customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Unique ID for every Candidate
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Candidate Successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        "404":
+          description: Error retrieving Candidate Data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      summary: Update Candidate Details
+      operationId: updateCustomer
+      tags:
+        - Customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Unique ID for every Candidate
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerUpdateDTO"
+      responses:
+        "200":
+          description: Candidate Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        "404":
+          description: No candidate Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete Candidate
+      operationId: deleteCustomerById
+      tags:
+        - Customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Unique ID for every Candidate
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Candidate Deleted Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        "404":
+          description: Error Deleting Candidate
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    CustomerRegisterDTO:
+      $ref: './schemas/customerRegisterDTO.yaml'
+    CustomerDTO:
+      $ref: './schemas/customerDTO.yaml'
+    CustomerUpdateDTO:
+      $ref: './schemas/customerUpdateRequestDTO.yaml'
+    ErrorResponse:
+      $ref: './schemas/errorResponse.yaml'
