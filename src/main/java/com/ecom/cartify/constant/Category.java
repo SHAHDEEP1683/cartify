@@ -2,8 +2,11 @@ package com.ecom.cartify.constant;
 
 public enum Category {
 
-    ELECTRONIC,
-    FASHION
+    ELECTRONICS,
+    CLOTHING,
+    HOME_APPLIANCES,
+    TOYS,
+    SPORTS
 
 
 }

@@ -1,0 +1,38 @@
+type: object
+properties:
+  orderId:
+    type: integer
+    format: int64
+    readOnly: true
+    example: 5001
+  customerId:
+    type: integer
+    format: int64
+    example: 101
+    description: "ID of the customer placing the order"
+  productId:
+    type: integer
+    format: int64
+    example: 205
+    description: "ID of the product being ordered"
+  quantity:
+    type: integer
+    example: 2
+    minimum: 1
+    description: "Number of units ordered"
+  totalAmount:
+    type: number
+    format: double
+    example: 1499.99
+    description: "Total price for the order"
+  orderStatus:
+    type: string
+    enum: [PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED]
+    example: "CONFIRMED"
+    description: "Current status of the order"
+  orderDateTime:
+    type: string
+    format: date-time
+    readOnly: true
+    example: "2025-06-25T16:45:30"
+    description: "Date and time the order was placed"

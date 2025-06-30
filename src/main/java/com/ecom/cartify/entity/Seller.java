@@ -10,6 +10,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -41,4 +45,5 @@ public class Seller extends Audit {
     @OneToOne
     @JoinColumn(name="addressId")
     private Address address;
+
 }

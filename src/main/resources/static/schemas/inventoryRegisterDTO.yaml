@@ -1,0 +1,25 @@
+type: object
+properties:
+  inventoryId:
+    type: integer
+    format: int64
+    example: 1
+    description: Unique ID for the inventory entry
+
+  quantity:
+    type: integer
+    format: int64
+    example: 100
+    description: Total quantity of the product in stock
+
+  sold:
+    type: integer
+    format: int64
+    example: 20
+    description: Number of units sold
+
+  productId:
+    type: integer
+    format: int64
+    example: 101
+    description: ID of the product this inventory belongs to
