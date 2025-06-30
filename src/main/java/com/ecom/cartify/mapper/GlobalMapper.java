@@ -1,8 +1,6 @@
 package com.ecom.cartify.mapper;
 
-import com.ecom.cartify.entity.Address;
-import com.ecom.cartify.entity.Customer;
-import com.ecom.cartify.entity.Seller;
+import com.ecom.cartify.entity.*;
 import org.mapstruct.*;
 import org.openapitools.model.*;
 
@@ -23,5 +21,23 @@ public interface GlobalMapper {
     SellerDataDTO toSellerDataDto(Seller seller);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toSellererUpdate(SellerUpdateDTO sellerUpdateDTO, @MappingTarget Seller seller);
+
+    Product toProduct(ProductRegisterDTO productRegisterDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void toProductUpdate(ProductUpdateDTO productUpdateDTO, @MappingTarget Product product);
+    ProductDataDTO toProductDataDto(Product product);
+
+    Inventory toInventory(InventoryDataDTO inventoryDataDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void toInventoryUpdate(InventoryUpdateDTO inventoryUpdateDTO, @MappingTarget Inventory inventory);
+    InventoryDataDTO toInventoryUpdateDto(Inventory inventory);
+
+    @Mapping(target = "product.productId", source = "productId")
+    @Mapping(target = "customer.customerId", source = "customerId")
+
+    Order toOrder(OrderCreateDTO dto);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void toOrderUpdate(OrderUpdateDTO dto, @MappingTarget Order entity);
+    OrderDataDTO toOrderDataDto(Order entity);
 
 }

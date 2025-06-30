@@ -251,6 +251,364 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /product:
+    post:
+      summary: Create a new product
+      description: Add a new product with the provided details.
+      operationId: registerProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductRegisterDTO"
+      responses:
+        "201":
+          description: Product successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "400":
+          description: Invalid product data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Product already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /product/{productId}:
+    patch:
+      summary: Update Product Details
+      operationId: updateProduct
+      tags:
+        - Product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique ID of the Product
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductUpdateDTO"
+      responses:
+        "200":
+          description: Product Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: Product Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    get:
+      summary: Get Product by Id
+      operationId: getProductById
+      tags:
+        - Product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique ID of the Product
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Product Retrieved Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: Product Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    delete:
+      summary: Delete Product
+      operationId: deleteProductById
+      tags:
+        - Product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique ID of the Product
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Product Deleted Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: Product Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /inventory:
+    post:
+      summary: Create a new inventory record
+      description: Add inventory quantity for a specific product.
+      operationId: registerInventory
+      tags:
+        - Inventory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InventoryRegisterDTO"
+      responses:
+        "201":
+          description: Inventory successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InventoryDTO"
+        "400":
+          description: Invalid inventory data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /inventory/{productId}:
+    patch:
+      summary: Update inventory quantity or location
+      operationId: updateInventory
+      tags:
+        - Inventory
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique ID of the Inventory
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InventoryUpdateDTO"
+      responses:
+        "200":
+          description: Inventory updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InventoryDTO"
+        "404":
+          description: Inventory not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    get:
+      summary: Get inventory by ID
+      operationId: getInventoryById
+      tags:
+        - Inventory
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique ID of the Inventory
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Inventory retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InventoryDTO"
+        "404":
+          description: Inventory not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    delete:
+      summary: Delete Inventory
+      operationId: deleteInventoryById
+      tags:
+        - Inventory
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique ID of the Inventory
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Inventory deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InventoryDTO"
+        "404":
+          description: Inventory not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /order:
+    post:
+      summary: Place a new order
+      operationId: createOrder
+      tags:
+        - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreateDTO"
+      responses:
+        "201":
+          description: Order Placed Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /order/{orderId}:
+    patch:
+      summary: Update Order Details
+      operationId: updateOrder
+      tags:
+        - Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Unique ID of the Order
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderUpdateDTO"
+      responses:
+        "200":
+          description: Order Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+        "404":
+          description: Order Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    get:
+      summary: Get Order by Id
+      operationId: getOrderById
+      tags:
+        - Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Unique ID of the Order
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Order Retrieved Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+        "404":
+          description: Order Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    delete:
+      summary: Delete Order
+      operationId: deleteOrderById
+      tags:
+        - Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Unique ID of the Order
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Order Deleted Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+        "404":
+          description: Order Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
 components:
   schemas:
@@ -266,5 +624,23 @@ components:
       $ref: './schemas/sellerDTO.yaml'
     SellerUpdateDTO:
       $ref: './schemas/sellerUpdateRequestDTO.yaml'
+    ProductRegisterDTO:
+      $ref: './schemas/productRegisterDTO.yaml'
+    ProductDTO:
+      $ref: './schemas/productDTO.yaml'
+    ProductUpdateDTO:
+      $ref: './schemas/productUpdateRequestDTO.yaml'
+    InventoryRegisterDTO:
+      $ref: './schemas/inventoryRegisterDTO.yaml'
+    InventoryDTO:
+      $ref: './schemas/inventoryDTO.yaml'
+    InventoryUpdateDTO:
+      $ref: './schemas/inventoryUpdateRequestDTO.yaml'
+    OrderCreateDTO:
+      $ref: './schemas/orderCreateDTO.yaml'
+    OrderDTO:
+      $ref: './schemas/orderDTO.yaml'
+    OrderUpdateDTO:
+      $ref: './schemas/orderUpdateDTO.yaml'
     ErrorResponse:
       $ref: './schemas/errorResponse.yaml'

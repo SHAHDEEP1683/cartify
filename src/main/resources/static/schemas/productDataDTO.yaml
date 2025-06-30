@@ -1,0 +1,40 @@
+type: object
+properties:
+  productName:
+    type: string
+    example: "Wireless Mouse"
+    description: "Name of the product"
+
+  productImage:
+    type: string
+    example: "https://example.com/images/mouse.jpg"
+    description: "Image URL of the product"
+
+  productPrice:
+    type: integer
+    format: int64
+    example: 1499
+    description: "Price of the product in INR"
+
+  productDescription:
+    type: string
+    example: "A high-precision wireless mouse suitable for gaming and office use"
+    description: "Detailed description of the product"
+
+  productCategory:
+    type: string
+    enum:
+      - ELECTRONICS
+      - CLOTHING
+      - HOME_APPLIANCES
+      - TOYS
+      - SPORTS
+    example: "ELECTRONICS"
+    description: "Category of the product"
+
+  sellerId:
+    type: integer
+    format: int64
+    example: 101
+    description: "ID of the seller who owns this product"
+
