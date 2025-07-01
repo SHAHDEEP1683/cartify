@@ -194,6 +194,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /seller/authenticate:
+    post:
+      summary: Authenticate seller and get JWT token
+      description: Authenticates a seller with email and password and returns a JWT token.
+      operationId: authenticateSeller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginForm'
+      responses:
+        "200":
+          description: Successful authentication, returns a JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseDTO'
+        "400":
+          description: Bad Request - Invalid input data
+        "401":
+          description: Unauthorized - Invalid credentials
+        "500":
+          description: Internal Server Error
+      tags:
+        - Authentication
+
   /seller/{sellerId}:
     patch:
       summary: Update Candidate Details

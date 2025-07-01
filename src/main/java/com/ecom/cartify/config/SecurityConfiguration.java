@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -54,9 +55,13 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers( "/customer/registration","/seller/registration").permitAll();
-                    registry.requestMatchers( "/customer/authenticate").permitAll();
-                    registry.requestMatchers("/customer/**").hasAnyRole("CUSTOMER");
+                    registry.requestMatchers("/customer/registration","customer/authenticate", "/seller/registration","/seller/authenticate").permitAll();
+                    registry.requestMatchers("/customer/{customerId}/**").hasRole("CUSTOMER");
+                    registry.requestMatchers("/seller/{sellerId}/**").hasRole("SELLER");
+                    registry.requestMatchers(HttpMethod.GET, "/product/{productId}").hasAnyRole("CUSTOMER", "SELLER");
+                    registry.requestMatchers("/product/**").hasRole("SELLER");
+                    registry.requestMatchers(HttpMethod.GET, "/order/{orderId}").hasAnyRole("CUSTOMER", "SELLER");
+                    registry.requestMatchers("/order/**").hasRole("CUSTOMER");
                     registry.requestMatchers(
                             "/swagger-ui/**",
                             "/v3/api-docs/**",

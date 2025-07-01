@@ -9,4 +9,6 @@ import java.util.Optional;
 @RestController
 public interface SellerRepositry extends JpaRepository<Seller, Long> {
     Optional<Seller> findByEmail(String email);
+    boolean existsByEmail(String email);
+
 }
