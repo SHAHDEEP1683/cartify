@@ -1,6 +1,7 @@
 package com.ecom.cartify.entity;
 
 import com.ecom.cartify.base.Audit;
+import com.ecom.cartify.constant.RoleType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -45,5 +46,8 @@ public class Seller extends Audit {
     @OneToOne
     @JoinColumn(name="addressId")
     private Address address;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType role = RoleType.SELLER;
 
 }

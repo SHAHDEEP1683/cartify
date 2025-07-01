@@ -2,6 +2,7 @@ package com.ecom.cartify.entity;
 
 import com.ecom.cartify.base.Audit;
 import com.ecom.cartify.constant.Gender;
+import com.ecom.cartify.constant.RoleType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -43,13 +44,16 @@ public class Customer extends Audit {
             message = "Invalid email format")
     private String email;
 
-    @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-            message = "Password must be at least 8 characters long and include uppercase, lowercase, digit, and special character"   )
+//    @Pattern(
+//            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+//            message = "Password must be at least 8 characters long and include uppercase, lowercase, digit, and special character"   )
+    @Column(nullable = false)
     private String password;
 
     @OneToOne
     @JoinColumn(name="addressId")
     private Address address;
 
+    @Enumerated(EnumType.STRING)
+    private RoleType role = RoleType.CUSTOMER;
 }

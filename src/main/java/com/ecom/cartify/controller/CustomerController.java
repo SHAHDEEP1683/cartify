@@ -1,21 +1,23 @@
 package com.ecom.cartify.controller;
 
 import com.ecom.cartify.service.CustomerService;
+import com.ecom.cartify.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.CustomerApi;
-import org.openapitools.model.CustomerDTO;
-import org.openapitools.model.CustomerRegisterDTO;
-import org.openapitools.model.CustomerUpdateDTO;
+import org.openapitools.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class CustomerController implements CustomerApi {
 
     private final CustomerService customerService;
+    private final RegistrationService registrationService;
 
     @Override
     public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerRegisterDTO customerRegisterDTO) {
@@ -23,6 +25,14 @@ public class CustomerController implements CustomerApi {
                     "Cretaed ",
                     customerService.createCustomer(customerRegisterDTO))
             );
+    }
+
+    @Override
+    public ResponseEntity<AuthResponseDTO> authenticateUser(LoginForm loginForm) {
+        log.info("Authenticating user: {}", loginForm.getEmail());
+        AuthResponseDTO authResponseDTO = registrationService.doAuthenticate(loginForm);
+        log.info("User authentication successful for: {}", loginForm.getEmail());
+        return ResponseEntity.ok(authResponseDTO);
     }
 
     @Override

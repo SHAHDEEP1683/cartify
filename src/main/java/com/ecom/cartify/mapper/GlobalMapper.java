@@ -1,5 +1,6 @@
 package com.ecom.cartify.mapper;
 
+import com.ecom.cartify.constant.RoleType;
 import com.ecom.cartify.entity.*;
 import org.mapstruct.*;
 import org.openapitools.model.*;
@@ -40,4 +41,7 @@ public interface GlobalMapper {
     void toOrderUpdate(OrderUpdateDTO dto, @MappingTarget Order entity);
     OrderDataDTO toOrderDataDto(Order entity);
 
+    default Roles toRoleEntity(String email, String encodedPassword, RoleType roleType) {
+        return Roles.of(email, encodedPassword, roleType);
+    }
 }

@@ -1,0 +1,8 @@
+type: object
+properties:
+  message:
+    type: string
+    example: "User authentication successful"
+  token:
+    type: string
+    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."

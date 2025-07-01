@@ -1,10 +1,8 @@
 package com.ecom.cartify.entity;
 
 import com.ecom.cartify.base.Audit;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.ecom.cartify.constant.RoleType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -41,6 +39,7 @@ public class Admin extends Audit {
     )
     private String phoneNumber;
 
-
+    @Enumerated(EnumType.STRING)
+    private RoleType role = RoleType.ADMIN;
 
 }

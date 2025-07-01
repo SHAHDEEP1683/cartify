@@ -8,7 +8,7 @@ servers:
   - url: http://localhost:8080
 
 paths:
-  /customer:
+  /customer/registration:
     post:
       summary: Make a new order
       description: Make a new order with the provided details.
@@ -44,6 +44,34 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+
+  /customer/authenticate:
+    post:
+      summary: Authenticate user and get JWT token
+      description: Authenticates a user with email and password and returns a JWT token.
+      operationId: authenticateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginForm'
+      responses:
+        "200":
+          description: Successful authentication, returns a JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseDTO'
+        "400":
+          description: Bad Request - Invalid input data
+        "401":
+          description: Unauthorized - Invalid credentials
+        "500":
+          description: Internal Server Error
+      tags:
+        - Authentication
+
 
   /customer/{customerId}:
     get:
@@ -130,7 +158,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /seller:
+  /seller/registration:
     post:
       summary: Create a new seller
       description: Make a new order with the provided details.
@@ -644,3 +672,7 @@ components:
       $ref: './schemas/orderUpdateDTO.yaml'
     ErrorResponse:
       $ref: './schemas/errorResponse.yaml'
+    AuthResponseDTO:
+      $ref: './schemas/authResponseDTO.yaml'
+    LoginForm:
+      $ref: './schemas/loginForm.yaml'

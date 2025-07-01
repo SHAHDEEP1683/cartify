@@ -154,6 +154,27 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 			<version>3.4.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -197,6 +218,31 @@
 								<importMapping>java.time.OffsetDateTime=java.time.LocalDateTime</importMapping>
 							</importMappings>
 							<inputSpec>${project.basedir}/src/main/resources/static/api.yaml</inputSpec>
+							<generatorName>spring</generatorName>
+							<output>${project.build.directory}/generated-sources/openapi</output>
+							<configOptions>
+								<additionalModelTypeAnnotations>@lombok.NoArgsConstructor @lombok.AllArgsConstructor
+								</additionalModelTypeAnnotations>
+								<interfaceOnly>true</interfaceOnly>
+								<useJakartaEe>true</useJakartaEe>
+								<useSpringBoot3>true</useSpringBoot3>
+								<skipApiUtil>true</skipApiUtil>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-registration-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<typeMappings>
+								<typeMapping>OffsetDateTime=java.time.LocalDateTime</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>java.time.OffsetDateTime=java.time.LocalDateTime</importMapping>
+							</importMappings>
+							<inputSpec>${project.basedir}/src/main/resources/static/registration.yaml</inputSpec>
 							<generatorName>spring</generatorName>
 							<output>${project.build.directory}/generated-sources/openapi</output>
 							<configOptions>

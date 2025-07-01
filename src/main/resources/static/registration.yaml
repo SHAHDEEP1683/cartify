@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: CARTIFY API
+  description: API for Registration of Customers, Sellers, and Admins
+  version: 1.0.0
+
+paths:
+  /customers:
+    post:
+      summary: Register a new customer
+      operationId: registerCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRegisterDTO'
+            example:
+              name: "John Doe"
+              email: "john@example.com"
+              password: "SecurePass123"
+              phone: "9876543210"
+      responses:
+        "201":
+          description: Customer registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponseDTO'
+        "400":
+          description: Invalid input
+        "409":
+          description: Customer already exists
+      tags:
+        - Customers
+
+  /sellers:
+    post:
+      summary: Register a new seller
+      operationId: registerSeller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellerRegisterDTO'
+            example:
+              businessName: "ShopMart"
+              email: "seller@example.com"
+              password: "SellerPass123"
+              gstNumber: "22AAAAA0000A1Z5"
+      responses:
+        "201":
+          description: Seller registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SellerResponseDTO'
+        "400":
+          description: Invalid input
+        "409":
+          description: Seller already exists
+      tags:
+        - Sellers
+
+components:
+  schemas:
+    CustomerRegisterDTO:
+      $ref: './schemas/customerRegisterDTO.yaml'
+    CustomerResponseDTO:
+      $ref: './schemas/customerRegisterDTO.yaml'
+    SellerRegisterDTO:
+      $ref: './schemas/sellerRegisterDTO.yaml'
+    SellerResponseDTO:
+      $ref: './schemas/sellerRegisterDTO.yaml'
